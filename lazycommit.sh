@@ -3,7 +3,9 @@
 _lazycommit_check_gum() {
     if ! command -v gum &> /dev/null
     then
-        echo "gum could not be found"
+        echo -e "gum could not be found"
+        echo -e "Instructions to install:"
+        echo -e "https://github.com/charmbracelet/gum#installation"
         exit
     fi
 }
@@ -11,7 +13,7 @@ _lazycommit_check_gum() {
 _lazycommit_check_git_dir() {
     if ! git rev-parse --is-inside-work-tree &> /dev/null
     then
-        echo "Not a git repository"
+        echo -e "Not a git repository\n"
         exit
     fi
 }
@@ -80,7 +82,7 @@ _lazycommit_init() {
 
     echo -e "LazyCommit\n"
     echo -e "Selecione o campo que deseja adicionar no seu commit:"
-    _lazycommit_help "Adicionar: ENTER   |   Sair:  ESC"
+    echo -e "| Adicionar: ENTER   |   Sair:  ESC |\n\n"
 
     FIELDS=$(gum choose "${OPTIONS[@]}")
     
@@ -93,18 +95,13 @@ _lazycommit_init() {
     grep -q "Observações" <<< "$FIELDS" && _lazycommit_observacoes
     grep -q "Breaking Changes" <<< "$FIELDS" && _lazycommit_breaking_changes
 
-    if [ ! -z $FIELDS ]; then
+    if [[ ! -z $FIELDS ]]; then
         _lazycommit_init
         clear
         return
     fi
 
     clear
-}
-
-_lazycommit_help(){
-    echo -e "$@"
-    echo
 }
 
 _lazycommit_prefixo() {
@@ -114,7 +111,7 @@ _lazycommit_prefixo() {
 
     echo -e "LazyCommit\n"
     echo -e "Selecione os prefixos que deseja adicionar no seu commit:"
-    _lazycommit_help "Selecionar: SPACE  |  Sair:  ESC"
+    echo -e "| Selecionar: SPACE  | Confirmar: ENTER | Sair:  ESC |\n\n"
 
     PREFIX_BUILD="Builds: Alterações que afetam o sistema de compilação ou dependências externas"
     PREFIX_CICD="Continuous Integration/Delivery: Alterações em nossos arquivos e scripts de configuração de CI/CD"
@@ -144,7 +141,7 @@ _lazycommit_prefixo() {
     grep -q "$PREFIX_CHORE" <<< "$PREFIX_FIELDS" && PREFIX_ARRAY+=("CHORE")
     grep -q "$PREFIX_REVERT" <<< "$PREFIX_FIELDS" && PREFIX_ARRAY+=("REVERT")
 
-    if [ -z "$PREFIX_ARRAY" ]; then
+    if [[ -z "$PREFIX_ARRAY" ]]; then
         PREFIX=""
         return
     fi
@@ -166,7 +163,7 @@ _lazycommit_titulo() {
 
     echo -e "LazyCommit\n"
     echo -e "Digite o título do seu commit:"
-    _lazycommit_help "Concluir: ENTER  |  Sair: ESC"
+    echo -e "| Concluir: ENTER  |  Sair: ESC |\n\n"
 
     local TITLE_FIELD=""
     local TITLE_VALUE=$TITLE
@@ -174,7 +171,7 @@ _lazycommit_titulo() {
 
     TITLE_FIELD=$(gum input --width=80 --value="$TITLE_VALUE")
 
-    if [ -z "$TITLE_FIELD" ]; then
+    if [[ -z "$TITLE_FIELD" ]]; then
         TITLE=""
         return
     fi
@@ -187,7 +184,7 @@ _lazycommit_descricao() {
 
     echo -e "LazyCommit\n"
     echo -e "Digite a descrição do seu commit:"
-    _lazycommit_help "Concluir: ESC"
+    echo -e "| Concluir: ESC |\n\n"
 
     local DESCRIPTION_FIELD=""
     local DESCRIPTION_VALUE=$DESCRIPTION
@@ -195,7 +192,7 @@ _lazycommit_descricao() {
 
     DESCRIPTION_FIELD=$(gum write --placeholder="..." --value="$DESCRIPTION_VALUE" --width=80 --prompt="┃ " --show-cursor-line)
 
-    if [ -z "$DESCRIPTION_FIELD" ]; then
+    if [[ -z "$DESCRIPTION_FIELD" ]]; then
         DESCRIPTION=""
         return
     fi
@@ -208,7 +205,7 @@ _lazycommit_problema() {
 
     echo -e "LazyCommit\n"
     echo -e "Digite o problema que o commit está resolvendo:"
-    _lazycommit_help "Concluir: ESC"
+    echo -e "| Concluir: ESC |\n\n"
 
     local PROBLEM_FIELD=""
     local PROBLEM_VALUE=$PROBLEM
@@ -216,7 +213,7 @@ _lazycommit_problema() {
 
     PROBLEM_FIELD=$(gum write --placeholder="..." --value="$PROBLEM_VALUE" --width=80 --prompt="┃ " --show-cursor-line)
 
-    if [ -z "$PROBLEM_FIELD" ]; then
+    if [[ -z "$PROBLEM_FIELD" ]]; then
         PROBLEM=""
         return
     fi
@@ -229,7 +226,7 @@ _lazycommit_solucao() {
 
     echo -e "LazyCommit\n"
     echo -e "Digite a solução que o commit está implementando:"
-    _lazycommit_help "Concluir: ESC"
+    echo -e "| Concluir: ESC |\n\n"
 
     local SOLUTION_FIELD=""
     local SOLUTION_VALUE=$SOLUTION
@@ -237,7 +234,7 @@ _lazycommit_solucao() {
 
     SOLUTION_FIELD=$(gum write --placeholder="..." --value="$SOLUTION_VALUE" --width=80 --prompt="┃ " --show-cursor-line)
 
-    if [ -z "$SOLUTION_FIELD" ]; then
+    if [[ -z "$SOLUTION_FIELD" ]]; then
         SOLUTION=""
         return
     fi
@@ -250,7 +247,7 @@ _lazycommit_links() {
 
     echo -e "LazyCommit\n"
     echo -e "Digite os links que o commit está relacionado:"
-    _lazycommit_help "Concluir: ESC"
+    echo -e "| Concluir: ESC |\n\n"
 
     local LINKS_FIELD=""
     local LINKS_VALUE=$LINKS
@@ -258,7 +255,7 @@ _lazycommit_links() {
 
     LINKS_FIELD=$(gum write --placeholder="..." --value="$LINKS_VALUE" --width=80 --prompt="┃ " --show-cursor-line)
 
-    if [ -z "$LINKS_FIELD" ]; then
+    if [[ -z "$LINKS_FIELD" ]]; then
         LINKS=""
         return
     fi
@@ -271,7 +268,7 @@ _lazycommit_observacoes() {
 
     echo -e "LazyCommit\n"
     echo -e "Digite as observações do commit:"
-    _lazycommit_help "Concluir: ESC"
+    echo -e "| Concluir: ESC |\n\n"
 
     local OBSERVATIONS_FIELD=""
     local OBSERVATIONS_VALUE=$OBSERVATIONS
@@ -279,7 +276,7 @@ _lazycommit_observacoes() {
 
     OBSERVATIONS_FIELD=$(gum write --placeholder="..." --value="$OBSERVATIONS_VALUE" --width=80 --prompt="┃ " --show-cursor-line)
 
-    if [ -z "$OBSERVATIONS_FIELD" ]; then
+    if [[ -z "$OBSERVATIONS_FIELD" ]]; then
         OBSERVATIONS=""
         return
     fi
@@ -292,7 +289,7 @@ _lazycommit_breaking_changes() {
 
     echo -e "LazyCommit\n"
     echo -e "Digite as mudanças que quebram a compatibilidade:"
-    _lazycommit_help "Concluir: ESC"
+    echo -e "| Concluir: ESC |\n\n"
 
     local BREAKING_CHANGES_FIELD=""
     local BREAKING_CHANGES_VALUE=$BREAKING_CHANGES
@@ -300,8 +297,10 @@ _lazycommit_breaking_changes() {
 
     BREAKING_CHANGES_FIELD=$(gum write --placeholder="..." --value="$BREAKING_CHANGES_VALUE" --width=80 --prompt="┃ " --show-cursor-line)
 
-    if [ -z "$BREAKING_CHANGES_FIELD" ]; then
+    if [[ -z "$BREAKING_CHANGES_FIELD" ]]; then
         BREAKING_CHANGES=""
+        _lazycommit_init
+        clear
         return
     fi
 
@@ -349,14 +348,14 @@ _lazycommit_proceed_to_commit() {
         COMMIT_MESSAGE+="Quebra de compatibilidade:\n\n$BREAKING_CHANGES\n\n"
     fi
 
-    echo $COMMIT_MESSAGE
-    echo "\n----------------------------------------"
+    echo -e "$COMMIT_MESSAGE"
+    echo -e "\n----------------------------------------"
 
     gum confirm "Confirma? [Não]" --affirmative "Sim" --negative "Não" --default=false && CONFIRM_COMMIT=true
 
     if $CONFIRM_COMMIT; then
         git commit -e -m "$(echo $COMMIT_MESSAGE)" && ( clear; echo "$(git log -1 --stat --pretty=oneline | head -n 1 && git log -1 --stat --pretty=oneline | tail -n 1)" ) || (clear; echo "Erro ao realizar o commit" )
-        echo -e "\n\nPressione qualquer tecla para continuar..."
+        echo -e "\nPressione qualquer tecla para continuar..."
         read -n 1
         return
     fi

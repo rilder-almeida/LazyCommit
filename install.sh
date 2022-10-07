@@ -12,4 +12,4 @@ if $(which git | grep "not found" > /dev/null); then
     echo "https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"
 fi
 
-wget -O lazycommit https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/lazycommit.sh && sudo chmod +x lazycommit && sudo mv lazycommit /usr/local/bin/lazycommit
+wget -O lazycommit https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/lazycommit.sh && sudo chmod +x lazycommit && sudo mv lazycommit /usr/local/bin/lazycommit && echo -e "LazyCommit installed successfully! \U1F389"

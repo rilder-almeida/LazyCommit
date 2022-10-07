@@ -1,4 +1,21 @@
 #!/bin/sh
+
+_lazycommit_check_gum() {
+    if ! command -v gum &> /dev/null
+    then
+        echo "gum could not be found"
+        exit
+    fi
+}
+
+_lazycommit_check_git_dir() {
+    if ! git rev-parse --is-inside-work-tree &> /dev/null
+    then
+        echo "Not a git repository"
+        exit
+    fi
+}
+
 _lazycommit_init() {
     clear
 
@@ -86,7 +103,7 @@ _lazycommit_init() {
 }
 
 _lazycommit_help(){
-    gum style --foreground="#696969" $@
+    echo -e "$@"
     echo
 }
 
@@ -386,22 +403,6 @@ lazycommit(){
         fi
     done
     clear
-}
-
-_lazycommit_check_gum() {
-    if ! command -v gum &> /dev/null
-    then
-        echo "gum could not be found"
-        exit
-    fi
-}
-
-_lazycommit_check_git_dir() {
-    if ! git rev-parse --is-inside-work-tree &> /dev/null
-    then
-        echo "Not a git repository"
-        exit
-    fi
 }
 
 lazycommit

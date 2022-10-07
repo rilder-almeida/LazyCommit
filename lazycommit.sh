@@ -347,7 +347,7 @@ _lazycommit_proceed_to_commit() {
     LOOP=true
 }
 
-_lazycommit(){
+lazycommit(){
     _lazycommit_check_gum
     _lazycommit_check_git_dir
 

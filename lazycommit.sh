@@ -403,3 +403,5 @@ _lazycommit_check_git_dir() {
         exit
     fi
 }
+
+lazycommit

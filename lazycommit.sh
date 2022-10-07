@@ -354,7 +354,7 @@ _lazycommit_proceed_to_commit() {
     gum confirm "Confirma? [Não]" --affirmative "Sim" --negative "Não" --default=false && CONFIRM_COMMIT=true
 
     if $CONFIRM_COMMIT; then
-        git commit -e -m "$(echo $COMMIT_MESSAGE)" && ( clear; echo "$(git log -1 --stat --pretty=oneline | head -n 1 && git log -1 --stat --pretty=oneline | tail -n 1)" ) || (clear; echo "Erro ao realizar o commit" )
+        git commit -e -m "${echo -e $COMMIT_MESSAGE}" && ( clear; echo "$(git log -1 --stat --pretty=oneline | head -n 1 && git log -1 --stat --pretty=oneline | tail -n 1)" ) || (clear; echo "Erro ao realizar o commit" )
         echo -e "\nPressione qualquer tecla para continuar..."
         read -n 1
         return

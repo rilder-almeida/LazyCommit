@@ -13,5 +13,3 @@ if $(which git | grep "not found" > /dev/null); then
 fi
 
 ( wget -O lazycommit https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/lazycommit.sh && sudo chmod +x lazycommit && sudo mv lazycommit /usr/local/bin/lazycommit ) && echo -e "LazyCommit installed successfully!" || echo -e "LazyCommit could not be installed"
-
-# sudo wget https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/install_lazycommit.sh && sh install_lazycommit.sh && rm -rf install_lazycommit.sh

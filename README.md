@@ -1,6 +1,6 @@
 # LazyCommit
 
-Gerador de menssagens de Commit para preguiçosos
+Gerador de mensagens de Commit para preguiçosos, com markdown e preview
 
 ## Instruções para instalação
 
@@ -12,14 +12,14 @@ sudo wget https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/ins
 
 ```console
 
-lazycommit - Cria e commita uma mensagem de commit, com markdown e preview
+lazycommit - Gerador de mensagens de Commit para preguiçosos, com markdown e preview
 
 Uso:
 	lazycommit [flags]
 
 Exemplo:
 
-	lazycommit -t feat -i "Adiciona funcionalidade X" -p "O problema era Y" -s "A solução foi Z" -l "https://link1.com" -l "https://link2.com" -y
+	lazycommit -t feat -i "Adiciona funcionalidade X" -p "O problema era Y" -s "A solução foi Z" -l "https://link1.com" -l "https://link2.com" -y --skip-ci --wip
 
 Flags:
 
@@ -27,7 +27,7 @@ Flags:
 	-i, --title string    Título do commit
 	-p, --problem string  Descrição do problema
 	-s, --solution string Descrição da solução
-	-l, --links strings   Links relacionados
+	-l, --links string    Links relacionados
 
 	-y, --yes             Commita sem confirmação
 

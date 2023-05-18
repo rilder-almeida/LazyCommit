@@ -177,14 +177,14 @@ func main() {
 	rootCmd.Flags().BoolVar(&wipFlag, "wip", false, "Work in progress")
 
 	rootCmd.Use = `
-lazycommit - Cria e commita uma mensagem de commit, com markdown e preview
+lazycommit - Gerador de mensagens de Commit para preguiçosos, com markdown e preview
 
 Uso:
 	lazycommit [flags]
 
 Exemplo:
 
-	lazycommit -t feat -i "Adiciona funcionalidade X" -p "O problema era Y" -s "A solução foi Z" -l "https://link1.com" -l "https://link2.com" -y
+	lazycommit -t feat -i "Adiciona funcionalidade X" -p "O problema era Y" -s "A solução foi Z" -l "https://link1.com" -l "https://link2.com" -y --skip-ci --wip
 
 Flags:
 
@@ -192,7 +192,7 @@ Flags:
 	-i, --title string    Título do commit
 	-p, --problem string  Descrição do problema
 	-s, --solution string Descrição da solução
-	-l, --links strings   Links relacionados
+	-l, --links string    Links relacionados
 
 	-y, --yes             Commita sem confirmação
 
@@ -200,7 +200,7 @@ Flags:
 	--wip                 Adiciona [wip] no início da mensagem
 
 	-h, --help            Ajuda para o lazycommit (esta tela)
-			`
+`
 
 	rootCmd.SetHelpFunc(func(cmd *cobra.Command, args []string) {
 		fmt.Println(cmd.Use)

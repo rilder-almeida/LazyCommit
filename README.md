@@ -37,3 +37,28 @@ Flags:
 	-h, --help            Ajuda para o lazycommit (esta tela)
 			
 ```
+
+```console
+
+Commit Preview:
+ 
+  [skip-ci] [wip] [feat] Adiciona funcionalidade X                            
+                                                                              
+  Problema:                                                                   
+                                                                              
+  O problema era Y                                                            
+                                                                              
+  Solução:                                                                    
+                                                                              
+  A solução foi Z                                                             
+                                                                              
+  Links:                                                                      
+                                                                              
+  • https://link1.com                                                         
+  • https://link2.com                                                         
+
+
+
+Do you want to commit the message? (y/N) 
+
+```

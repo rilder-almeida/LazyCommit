@@ -109,7 +109,7 @@ func makePreview(message string) error {
 }
 
 func makeCommit() error {
-	commitCmd := exec.Command("git", "commit", "-m", "'$(cat $HOME/.gitmessage)'")
+	commitCmd := exec.Command("git", "commit", "-F", os.Getenv("HOME")+"/.gitmessage")
 	commitCmd.Stdout = os.Stdout
 	commitCmd.Stderr = os.Stderr
 	err := commitCmd.Run()

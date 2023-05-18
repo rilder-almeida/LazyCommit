@@ -1,6 +1,6 @@
 # LazyCommit
 
-Gerador de menssagens de Commit para preguiçosos
+Gerador de mensagens de Commit para preguiçosos
 
 ## Instruções para instalação
 

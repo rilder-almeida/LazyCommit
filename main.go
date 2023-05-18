@@ -116,7 +116,7 @@ func makeCommit() error {
 	if err != nil {
 		return errors.New("Failed to commit: " + err.Error())
 	}
-	fmt.Println("Message committed successfully!")
+	fmt.Println("\nMessage committed successfully!")
 	return cleanup()
 }
 

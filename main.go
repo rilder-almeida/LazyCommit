@@ -57,7 +57,7 @@ func makeMessage(args []string) string {
 	if len(linksArg) > 0 {
 		message += "\n\nLinks:"
 		for _, link := range linksArg {
-			message += "\n - " + link
+			message += "\n\n - " + link
 		}
 	}
 

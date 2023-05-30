@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var version = "v.0.06b"
+var version = "v.0.07b"
 
 var (
 	_typeArg    string

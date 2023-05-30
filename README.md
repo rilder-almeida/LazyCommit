@@ -2,7 +2,7 @@
 
 Gerador de mensagens de Commit para preguiçosos, com markdown e preview
 
-## Instruções para instalação
+## Instruções para instalação ou atualização
 
 ```console
 curl -s https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/install.sh | bash
@@ -34,6 +34,7 @@ Flags:
 	--skip-ci             Adiciona [skip-ci] no início da mensagem
 	--wip                 Adiciona [wip] no início da mensagem
 
+	-v, --version         Versão do lazycommit
 	-h, --help            Ajuda para o lazycommit (esta tela)
 			
 ```
@@ -55,7 +56,8 @@ Commit Preview:
                                                                               
   Links:                                                                      
                                                                               
-  • https://link1.com                                                         
+  • https://link1.com
+                                                           
   • https://link2.com                                                         
 
 

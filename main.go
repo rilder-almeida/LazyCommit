@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var version = "v.0.05b"
+var version = "v.0.06b"
 
 var (
 	_typeArg    string
@@ -196,11 +196,6 @@ func getRunCmd(cmd *cobra.Command, args []string) error {
 }
 
 func main() {
-	err := checkLatestRelease()
-	if err != nil {
-		fmt.Println(err)
-	}
-
 	rootCmd := &cobra.Command{
 		RunE:         getRunCmd,
 		SilenceUsage: true,
@@ -256,6 +251,11 @@ Flags:
 		fmt.Println(cmd.Use)
 		return nil
 	})
+
+	err := checkLatestRelease()
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)

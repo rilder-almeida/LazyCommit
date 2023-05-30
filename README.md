@@ -5,7 +5,7 @@ Gerador de mensagens de Commit para preguiçosos, com markdown e preview
 ## Instruções para instalação
 
 ```console
-sudo wget https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/install_lazycommit.sh && sh install_lazycommit.sh && rm -rf install_lazycommit.sh
+curl -s https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/install.sh | bash
 ```
 
 ## Uso

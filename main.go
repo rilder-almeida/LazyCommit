@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var version = "v.0.03a"
+var version = "v.0.04b"
 
 var (
 	_typeArg    string
@@ -41,7 +41,9 @@ func checkLatestRelease() error {
 	}
 
 	if strings.TrimSpace(release.Tag) != strings.TrimSpace(version) {
-		fmt.Println("New version available: " + release.Tag)
+		fmt.Println("Nova versão disponível: " + release.Tag)
+		fmt.Println("Execute o comando para atualizar:")
+		fmt.Println("curl -s https://raw.githubusercontent.com/rilder-almeida/LazyCommit/master/install.sh | bash")
 		return nil
 	}
 

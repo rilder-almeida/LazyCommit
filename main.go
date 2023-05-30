@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -11,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var version = "v.0.02a"
+
 var (
 	_typeArg    string
 	titleArg    string
@@ -20,7 +23,31 @@ var (
 	yesFlag     bool
 	skipCIFlag  bool
 	wipFlag     bool
+	versionFlag bool
 )
+
+func checkLatestRelease() error {
+	curlResult, err := exec.Command("curl", "-s", "https://api.github.com/repos/rilder-almeida/LazyCommit/releases/latest").Output()
+	if err != nil {
+		return errors.New("Failed to check latest release: " + err.Error())
+	}
+
+	var release struct {
+		Tag string `json:"tag_name"`
+	}
+	err = json.Unmarshal(curlResult, &release)
+	if err != nil {
+		return errors.New("Failed to check latest release: " + err.Error())
+	}
+
+	if strings.TrimSpace(release.Tag) != strings.TrimSpace(version) {
+		fmt.Println("New version available: " + release.Tag)
+		return nil
+	}
+
+	return nil
+
+}
 
 func cleanup() error {
 	if _, err := os.Stat(os.Getenv("HOME") + "/.gitmessage"); os.IsNotExist(err) {
@@ -121,6 +148,11 @@ func makeCommit() error {
 }
 
 func getRunCmd(cmd *cobra.Command, args []string) error {
+	if versionFlag {
+		fmt.Println("lazycommit " + version)
+		return nil
+	}
+
 	message := makeMessage(args)
 
 	if message == "" {
@@ -162,6 +194,11 @@ func getRunCmd(cmd *cobra.Command, args []string) error {
 }
 
 func main() {
+	err := checkLatestRelease()
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	rootCmd := &cobra.Command{
 		RunE:         getRunCmd,
 		SilenceUsage: true,
@@ -175,6 +212,7 @@ func main() {
 	rootCmd.Flags().BoolVarP(&yesFlag, "yes", "y", false, "Commita sem preview")
 	rootCmd.Flags().BoolVar(&skipCIFlag, "skip-ci", false, "Skip CI")
 	rootCmd.Flags().BoolVar(&wipFlag, "wip", false, "Work in progress")
+	rootCmd.Flags().BoolVarP(&versionFlag, "version", "v", false, "Versão do lazycommit")
 
 	rootCmd.Use = `
 lazycommit - Gerador de mensagens de Commit para preguiçosos, com markdown e preview
@@ -199,6 +237,7 @@ Flags:
 	--skip-ci             Adiciona [skip-ci] no início da mensagem
 	--wip                 Adiciona [wip] no início da mensagem
 
+	-v, --version         Versão do lazycommit
 	-h, --help            Ajuda para o lazycommit (esta tela)
 `
 
